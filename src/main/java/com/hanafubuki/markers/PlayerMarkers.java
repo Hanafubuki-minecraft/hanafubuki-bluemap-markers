@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,26 +22,41 @@ import java.util.regex.Pattern;
 public final class PlayerMarkers {
 
     public static final String SET_ID = "player-markers";
-    // буквы (вкл. кириллицу), цифры, пробел, - и _ ; заодно защищает HTML в подписи на карте
-    private static final Pattern NAME = Pattern.compile("[\\p{L}\\p{N} _\\-]{1,32}");
+    public static final String UNLIMITED = "hanafubuki.marker.unlimited";
 
     public record Marker(UUID owner, String ownerName, String name,
                          String world, double x, double y, double z) {
         String key() { return owner + ":" + name.toLowerCase(Locale.ROOT); }
     }
 
-    public enum Result { OK, BAD_NAME, LIMIT, EXISTS, NOT_FOUND }
+    public record Settings(int maxPerPlayer, int maxNameLength, Set<String> disabledWorlds,
+                           String layerLabel, boolean defaultHidden, double maxDistance) {
+        public static Settings from(FileConfiguration c) {
+            return new Settings(
+                    Math.max(0, c.getInt("markers.max-per-player", 3)),
+                    Math.min(64, Math.max(1, c.getInt("markers.max-name-length", 32))),
+                    Set.copyOf(c.getStringList("markers.disabled-worlds")),
+                    c.getString("map.layer-label", ""),
+                    c.getBoolean("map.default-hidden", false),
+                    c.getDouble("map.max-distance", 100000));
+        }
+    }
+
+    public enum Result { OK, BAD_NAME, LIMIT, EXISTS, NOT_FOUND, WORLD_DISABLED }
 
     private final JavaPlugin plugin;
+    private final Messages messages;
     private final File file;
-    private final int maxPerPlayer;
     private final Map<String, Marker> markers = new ConcurrentHashMap<>();
+    private volatile Settings settings;
+    // буквы (вкл. кириллицу), цифры, пробел, - и _ ; заодно защищает HTML в подписи на карте
+    private volatile Pattern namePattern;
     private Consumer<BlueMapAPI> listener;
 
-    public PlayerMarkers(JavaPlugin plugin, int maxPerPlayer) {
+    public PlayerMarkers(JavaPlugin plugin, Messages messages) {
         this.plugin = plugin;
+        this.messages = messages;
         this.file = new File(plugin.getDataFolder(), "markers.yml");
-        this.maxPerPlayer = maxPerPlayer;
     }
 
     public void enable() {
@@ -49,7 +65,7 @@ public final class PlayerMarkers {
             listener = this::syncAll;
             BlueMapAPI.onEnable(listener); // срабатывает и после /bluemap reload
         } else {
-            plugin.getLogger().warning("BlueMap не найден — метки сохраняются, но не видны на карте");
+            plugin.getLogger().warning("BlueMap not found — markers are saved but not shown on a map");
         }
     }
 
@@ -57,10 +73,25 @@ public final class PlayerMarkers {
         if (listener != null) BlueMapAPI.unregisterListener(listener);
     }
 
+    public void applySettings(Settings s) {
+        this.settings = s;
+        this.namePattern = Pattern.compile("[\\p{L}\\p{N} _\\-]{1," + s.maxNameLength() + "}");
+        refreshMap();
+    }
+
+    public Settings settings() {
+        return settings;
+    }
+
+    public boolean isUnlimited(Player p) {
+        return p.hasPermission(UNLIMITED);
+    }
+
     public Result add(Player p, String name) {
         name = name.trim();
-        if (!NAME.matcher(name).matches()) return Result.BAD_NAME;
-        if (ownedBy(p.getUniqueId()).size() >= maxPerPlayer) return Result.LIMIT;
+        if (!namePattern.matcher(name).matches()) return Result.BAD_NAME;
+        if (settings.disabledWorlds().contains(p.getWorld().getName())) return Result.WORLD_DISABLED;
+        if (!isUnlimited(p) && ownedBy(p.getUniqueId()).size() >= settings.maxPerPlayer()) return Result.LIMIT;
         Location l = p.getLocation();
         Marker m = new Marker(p.getUniqueId(), p.getName(), name, l.getWorld().getName(),
                 l.getBlockX() + 0.5, l.getBlockY(), l.getBlockZ() + 0.5);
@@ -90,27 +121,32 @@ public final class PlayerMarkers {
         return markers.values().stream().map(Marker::ownerName).distinct().toList();
     }
 
-    public int maxPerPlayer() { return maxPerPlayer; }
-
     private void changed() {
         save();
+        refreshMap();
+    }
+
+    private void refreshMap() {
         if (listener != null) BlueMapAPI.getInstance().ifPresent(this::syncAll);
     }
 
     private void syncAll(BlueMapAPI api) {
+        Settings s = settings;
+        String label = s.layerLabel() == null || s.layerLabel().isBlank() ? messages.raw("layer-label") : s.layerLabel();
+        String detail = messages.raw("map-detail");
         for (World world : Bukkit.getWorlds()) {
             MarkerSet set = MarkerSet.builder()
-                    .label("Метки игроков")
+                    .label(label)
                     .toggleable(true)
-                    .defaultHidden(false)
+                    .defaultHidden(s.defaultHidden())
                     .build();
             for (Marker m : markers.values()) {
                 if (!m.world().equals(world.getName())) continue;
                 set.getMarkers().put(m.key(), POIMarker.builder()
                         .label(m.name())
-                        .detail("<b>" + m.name() + "</b><br>" + m.ownerName())
+                        .detail(detail.replace("<name>", m.name()).replace("<owner>", m.ownerName()))
                         .position(m.x(), m.y(), m.z())
-                        .maxDistance(100000)
+                        .maxDistance(s.maxDistance())
                         .build());
             }
             api.getWorld(world).ifPresent(bw ->
@@ -131,7 +167,7 @@ public final class PlayerMarkers {
                         s.getDouble("x"), s.getDouble("y"), s.getDouble("z"));
                 markers.put(m.key(), m);
             } catch (Exception e) {
-                plugin.getLogger().warning("Битая метка в markers.yml (" + id + "): " + e.getMessage());
+                plugin.getLogger().warning("Broken marker in markers.yml (" + id + "): " + e.getMessage());
             }
         }
     }
@@ -152,7 +188,7 @@ public final class PlayerMarkers {
         try {
             yml.save(file);
         } catch (IOException e) {
-            plugin.getLogger().severe("Не удалось сохранить markers.yml: " + e.getMessage());
+            plugin.getLogger().severe("Could not save markers.yml: " + e.getMessage());
         }
     }
 }

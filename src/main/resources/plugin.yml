@@ -3,19 +3,25 @@ version: '${version}'
 main: com.hanafubuki.markers.MarkersPlugin
 api-version: '1.21'
 author: ByteMe6
-description: Метки игроков на BlueMap для сервера Hanafubuki
+website: https://github.com/ByteMe6/hanafubuki-bluemap-markers
+description: Let players place their own markers on the BlueMap web map
 softdepend: [BlueMap]
 
 commands:
   marker:
-    description: Метки игроков на карте
+    description: Player markers on the BlueMap web map
     usage: /marker <add|remove|list>
-    aliases: [метка]
+    aliases: [markers, метка]
 
 permissions:
   hanafubuki.marker.use:
-    description: Ставить и удалять свои метки
+    description: Create, remove and list own markers
     default: true
-  hanafubuki.marker.admin:
-    description: Удалять чужие метки
+  hanafubuki.marker.unlimited:
+    description: Ignore the per-player marker limit
     default: op
+  hanafubuki.marker.admin:
+    description: Remove any marker, change language, reload config
+    default: op
+    children:
+      hanafubuki.marker.use: true

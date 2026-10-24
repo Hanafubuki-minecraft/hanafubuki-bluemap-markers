@@ -1,0 +1,46 @@
+# Русские сообщения HanafubukiBlueMapMarkers
+# Формат: MiniMessage — https://docs.advntr.dev/minimessage/format.html
+# Если ключа нет, берётся встроенный текст.
+
+prefix: "<gray>[<#ffb7c5>Метки</#ffb7c5>]</gray> "
+
+# Показывается на веб-странице BlueMap. map-detail — это HTML (не MiniMessage); <name> и <owner> подставляются.
+layer-label: "Метки игроков"
+map-detail: "<b><name></b><br><owner>"
+
+players-only: "<red>Эта команда только для игроков."
+no-permission: "<red>Недостаточно прав."
+
+usage-add: "<red>Использование: <white>/<label> add [название]"
+usage-remove: "<red>Использование: <white>/<label> remove [название]"
+usage-adminremove: "<red>Использование: <white>/<label> adminremove [игрок] [название]"
+
+add-ok: "<green>Метка <white><name></white> добавлена на карту."
+bad-name: "<red>Название: 1–<max> символов — буквы, цифры, пробел, - и _."
+world-disabled: "<red>В этом мире метки ставить нельзя."
+limit: "<red>Достигнут лимит меток: <limit>. Сначала удали одну: <white>/<label> remove [название]"
+exists: "<red>У тебя уже есть метка с таким названием."
+
+remove-ok: "<green>Метка <white><name></white> удалена."
+remove-not-found: "<red>Нет метки с таким названием. Список: <white>/<label> list"
+
+list-empty: "<gray>У тебя пока нет меток. Добавить: <white>/<label> add [название]"
+list-header: "<green>Твои метки (<count>/<limit>):"
+list-entry: "<gray> • <white><name></white> — <world> <x> <y> <z>"
+
+admin-no-markers: "<red>У игрока <player> нет меток."
+admin-remove-ok: "<green>Метка <white><name></white> игрока <player> удалена."
+admin-remove-not-found: "<red>У игрока <player> нет метки с таким названием."
+
+language-current: "<gray>Текущий язык: <white><language></white>. Доступны: <white><available>"
+language-set: "<green>Язык изменён на <white><language></white>."
+language-unknown: "<red>Неизвестный язык <white><language></white>. Доступны: <white><available>"
+reloaded: "<green>Конфигурация перезагружена."
+
+help-header: "<green>Метки на карте BlueMap:"
+help-add: "<gray> /<label> add [название] <dark_gray>—</dark_gray> метка на твоём месте"
+help-remove: "<gray> /<label> remove [название] <dark_gray>—</dark_gray> удалить свою метку"
+help-list: "<gray> /<label> list <dark_gray>—</dark_gray> твои метки"
+help-adminremove: "<gray> /<label> adminremove [игрок] [название] <dark_gray>—</dark_gray> удалить любую метку"
+help-language: "<gray> /<label> language [код] <dark_gray>—</dark_gray> сменить язык"
+help-reload: "<gray> /<label> reload <dark_gray>—</dark_gray> перезагрузить конфиг"

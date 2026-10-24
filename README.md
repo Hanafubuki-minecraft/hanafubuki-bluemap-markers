@@ -29,6 +29,7 @@ A player stands where they want, types `/marker add My Base` — and the point a
 - 🛡️ **Safe names** — letters (incl. Cyrillic), digits, spaces, `-` and `_`; no HTML injection into the map
 - 💾 **Persistent** — survives restarts and `/bluemap reload`
 - 🔌 **BlueMap is optional** — without it markers are still saved and show up once BlueMap is installed
+- 🌐 **Multilingual** — English by default, Russian built in, switch with one command, add your own language file
 
 ## Installation
 
@@ -46,27 +47,52 @@ That's it — no setup required.
 | `/marker remove <name>` | Remove your marker | `hanafubuki.marker.use` |
 | `/marker list` | List your markers with coordinates | `hanafubuki.marker.use` |
 | `/marker adminremove <player> <name>` | Remove someone else's marker | `hanafubuki.marker.admin` |
+| `/marker language [code]` | Show or change the language (saved to `config.yml`) | `hanafubuki.marker.admin` |
+| `/marker reload` | Reload config and language files | `hanafubuki.marker.admin` |
 
-Alias: `/метка`. Tab completion is available for subcommands and marker names.
+Aliases: `/markers`, `/метка`. Tab completion works for subcommands, marker names and languages.
 
 ## Permissions
 
 | Permission | Default | Description |
 |---|---|---|
 | `hanafubuki.marker.use` | everyone | Create, remove and list own markers |
-| `hanafubuki.marker.admin` | op | Remove any player's markers |
+| `hanafubuki.marker.unlimited` | op | Ignore the per-player marker limit |
+| `hanafubuki.marker.admin` | op | Remove any marker, change language, reload (includes `use`) |
 
 ## Configuration
 
 `plugins/HanafubukiBlueMapMarkers/config.yml`:
 
 ```yaml
+# Language of in-game messages: en, ru — or any file in lang/
+language: en
+
 markers:
-  # How many markers one player can have
-  max-per-player: 3
+  max-per-player: 3        # per-player limit (bypass: hanafubuki.marker.unlimited)
+  max-name-length: 32      # 1–64
+  disabled-worlds: []      # e.g. [world_the_end]
+
+map:
+  layer-label: ""          # BlueMap layer name; empty = from language file
+  default-hidden: false    # hide the layer until a visitor turns it on
+  max-distance: 100000     # hide markers when zoomed out further than this
 ```
 
-Markers are stored in `plugins/HanafubukiBlueMapMarkers/markers.yml`.
+Apply changes with `/marker reload`. Markers are stored in `markers.yml`; new config keys are added automatically on update.
+
+## Languages
+
+Built in: **English** (`en`, default) and **Russian** (`ru`).
+
+```
+/marker language ru
+```
+
+The command writes `language: ru` to `config.yml` and applies it immediately — no restart.
+
+Messages live in `plugins/HanafubukiBlueMapMarkers/lang/<code>.yml` and use [MiniMessage](https://docs.advntr.dev/minimessage/format.html) formatting, so you can freely recolor or reword them.
+**Adding a language:** copy `en.yml` to e.g. `de.yml`, translate it, run `/marker language de`. Missing keys fall back to English. Pull requests with new languages are welcome!
 
 ## Compatibility
 
@@ -78,8 +104,6 @@ Markers are stored in `plugins/HanafubukiBlueMapMarkers/markers.yml`.
 | Folia | ❌ Not supported |
 | BlueMap 5.x (API 2.x) | ✅ Supported, optional |
 | Geyser / Floodgate | ✅ Supported |
-
-> In-game messages are currently in Russian.
 
 ## Building
 
@@ -96,7 +120,7 @@ gradle build
 The plugin version lives in a single place — [`gradle.properties`](gradle.properties):
 
 ```properties
-version=1.0.0
+version=1.1.0
 ```
 
 Bump it and push to `main` → GitHub Actions builds the jar and publishes release `v<version>` with auto-generated notes.

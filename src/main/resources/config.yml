@@ -1,3 +1,23 @@
+# HanafubukiBlueMapMarkers configuration
+# Apply changes with /marker reload
+
+# Language of in-game messages: en, ru — or any file you add to plugins/HanafubukiBlueMapMarkers/lang/
+# Can also be changed in-game: /marker language <code>
+language: en
+
 markers:
-  # Сколько меток может поставить один игрок
+  # How many markers one player can have.
+  # Players with the permission hanafubuki.marker.unlimited ignore this limit.
   max-per-player: 3
+  # Maximum length of a marker name (1–64)
+  max-name-length: 32
+  # Worlds where players can't place markers, e.g. [world_the_end]
+  disabled-worlds: []
+
+map:
+  # Name of the layer in the BlueMap web UI. Leave empty to use the current language.
+  layer-label: ""
+  # Hide the layer by default (visitors can still turn it on in the web UI)
+  default-hidden: false
+  # Markers are hidden when the map camera is further away than this (in blocks)
+  max-distance: 100000
