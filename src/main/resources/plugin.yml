@@ -3,7 +3,7 @@ version: '${version}'
 main: com.hanafubuki.markers.MarkersPlugin
 api-version: '1.21'
 author: ByteMe6
-website: https://github.com/ByteMe6/hanafubuki-bluemap-markers
+website: https://github.com/Hanafubuki-minecraft/hanafubuki-bluemap-markers
 description: Let players place their own markers on the BlueMap web map
 softdepend: [BlueMap]
 

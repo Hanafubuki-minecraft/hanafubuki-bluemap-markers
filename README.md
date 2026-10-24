@@ -4,9 +4,9 @@
 
 **Let players place their own markers on the [BlueMap](https://bluemap.bluecolored.de/) web map — straight from the game.**
 
-[![Build](https://github.com/ByteMe6/hanafubuki-bluemap-markers/actions/workflows/release.yml/badge.svg)](https://github.com/ByteMe6/hanafubuki-bluemap-markers/actions/workflows/release.yml)
-[![Release](https://img.shields.io/github/v/release/ByteMe6/hanafubuki-bluemap-markers)](https://github.com/ByteMe6/hanafubuki-bluemap-markers/releases/latest)
-[![License: GPL v3](https://img.shields.io/github/license/ByteMe6/hanafubuki-bluemap-markers)](LICENSE)
+[![Build](https://github.com/Hanafubuki-minecraft/hanafubuki-bluemap-markers/actions/workflows/release.yml/badge.svg)](https://github.com/Hanafubuki-minecraft/hanafubuki-bluemap-markers/actions/workflows/release.yml)
+[![Release](https://img.shields.io/github/v/release/Hanafubuki-minecraft/hanafubuki-bluemap-markers)](https://github.com/Hanafubuki-minecraft/hanafubuki-bluemap-markers/releases/latest)
+[![License: GPL v3](https://img.shields.io/github/license/Hanafubuki-minecraft/hanafubuki-bluemap-markers)](LICENSE)
 ![Paper](https://img.shields.io/badge/Paper-1.21.x-blue)
 ![Java](https://img.shields.io/badge/Java-21-orange)
 
@@ -33,7 +33,7 @@ A player stands where they want, types `/marker add My Base` — and the point a
 
 ## Installation
 
-1. Download the latest `HanafubukiBlueMapMarkers-x.y.z.jar` from [Releases](https://github.com/ByteMe6/hanafubuki-bluemap-markers/releases/latest).
+1. Download the latest `HanafubukiBlueMapMarkers-x.y.z.jar` from [Releases](https://github.com/Hanafubuki-minecraft/hanafubuki-bluemap-markers/releases/latest).
 2. Put it into `plugins/`.
 3. Restart the server.
 
