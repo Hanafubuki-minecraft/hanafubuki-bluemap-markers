@@ -1,47 +1,107 @@
+<div align="center">
+
 # HanafubukiBlueMapMarkers
 
-Paper-плагин для сервера **Hanafubuki**: игроки сами ставят метки на веб-карту [BlueMap](https://bluemap.bluecolored.de/).
+**Let players place their own markers on the [BlueMap](https://bluemap.bluecolored.de/) web map — straight from the game.**
 
-- Метка ставится на текущее место игрока, работает и для Bedrock (Geyser/Floodgate)
-- Лимит меток на игрока
-- Отдельный слой «Метки игроков» на карте, его можно скрыть
-- Метки хранятся в `plugins/HanafubukiBlueMapMarkers/markers.yml` и переживают рестарт и `/bluemap reload`
-- Без BlueMap плагин тоже работает: метки сохраняются и появятся на карте после его установки
+[![Build](https://github.com/ByteMe6/hanafubuki-bluemap-markers/actions/workflows/release.yml/badge.svg)](https://github.com/ByteMe6/hanafubuki-bluemap-markers/actions/workflows/release.yml)
+[![Release](https://img.shields.io/github/v/release/ByteMe6/hanafubuki-bluemap-markers)](https://github.com/ByteMe6/hanafubuki-bluemap-markers/releases/latest)
+[![License: GPL v3](https://img.shields.io/github/license/ByteMe6/hanafubuki-bluemap-markers)](LICENSE)
+![Paper](https://img.shields.io/badge/Paper-1.21.x-blue)
+![Java](https://img.shields.io/badge/Java-21-orange)
 
-## Команды
+English · [Русский](README.ru.md)
 
-| Команда | Описание | Право |
+</div>
+
+---
+
+Made for the **Hanafubuki** vanilla+ server, but works on any Paper server with BlueMap.
+A player stands where they want, types `/marker add My Base` — and the point appears on the web map instantly, no re-render needed.
+
+## Features
+
+- 📍 **Markers at the player's position** — one command, no coordinates to type
+- 🗺️ **Separate map layer** — "Метки игроков" can be toggled on/off in the BlueMap UI
+- 🌍 **All worlds** — overworld, nether, end and any custom worlds BlueMap renders
+- 📱 **Bedrock players supported** — works through Geyser / Floodgate like any other command
+- 🔢 **Per-player limit** — configurable, so the map doesn't turn into confetti
+- 🛡️ **Safe names** — letters (incl. Cyrillic), digits, spaces, `-` and `_`; no HTML injection into the map
+- 💾 **Persistent** — survives restarts and `/bluemap reload`
+- 🔌 **BlueMap is optional** — without it markers are still saved and show up once BlueMap is installed
+
+## Installation
+
+1. Download the latest `HanafubukiBlueMapMarkers-x.y.z.jar` from [Releases](https://github.com/ByteMe6/hanafubuki-bluemap-markers/releases/latest).
+2. Put it into `plugins/`.
+3. Restart the server.
+
+That's it — no setup required.
+
+## Commands
+
+| Command | Description | Permission |
 |---|---|---|
-| `/marker add <название>` | Поставить метку на своём месте | `hanafubuki.marker.use` (все) |
-| `/marker remove <название>` | Удалить свою метку | `hanafubuki.marker.use` |
-| `/marker list` | Список своих меток | `hanafubuki.marker.use` |
-| `/marker adminremove <игрок> <название>` | Удалить чужую метку | `hanafubuki.marker.admin` (OP) |
+| `/marker add <name>` | Place a marker where you stand | `hanafubuki.marker.use` |
+| `/marker remove <name>` | Remove your marker | `hanafubuki.marker.use` |
+| `/marker list` | List your markers with coordinates | `hanafubuki.marker.use` |
+| `/marker adminremove <player> <name>` | Remove someone else's marker | `hanafubuki.marker.admin` |
 
-Алиас: `/метка`. Название метки: 1–32 символа (буквы, цифры, пробел, `-`, `_`).
+Alias: `/метка`. Tab completion is available for subcommands and marker names.
 
-## Конфиг
+## Permissions
+
+| Permission | Default | Description |
+|---|---|---|
+| `hanafubuki.marker.use` | everyone | Create, remove and list own markers |
+| `hanafubuki.marker.admin` | op | Remove any player's markers |
+
+## Configuration
+
+`plugins/HanafubukiBlueMapMarkers/config.yml`:
 
 ```yaml
 markers:
+  # How many markers one player can have
   max-per-player: 3
 ```
 
-## Требования
+Markers are stored in `plugins/HanafubukiBlueMapMarkers/markers.yml`.
 
-- Paper 1.21.x, Java 21
-- BlueMap 5.x (необязательно)
+## Compatibility
 
-## Сборка
+| Platform | Status |
+|---|---|
+| Paper 1.21.x | ✅ Supported |
+| Purpur, Pufferfish and other Paper forks | ✅ Should work |
+| Spigot / CraftBukkit | ❌ Not supported (uses Paper's Adventure API) |
+| Folia | ❌ Not supported |
+| BlueMap 5.x (API 2.x) | ✅ Supported, optional |
+| Geyser / Floodgate | ✅ Supported |
+
+> In-game messages are currently in Russian.
+
+## Building
+
+The project is built by GitHub Actions — you don't need to build it locally.
+If you want to anyway: Java 21 + Gradle.
 
 ```bash
 gradle build
-# jar: build/libs/HanafubukiBlueMapMarkers-<версия>.jar
+# → build/libs/HanafubukiBlueMapMarkers-<version>.jar
 ```
 
-## Релизы
+## Releasing
 
-Версия плагина задаётся в `gradle.properties`. При пуше в `main` с новой версией GitHub Actions собирает jar и публикует релиз `v<версия>`. Если версия не менялась, проект просто собирается для проверки.
+The plugin version lives in a single place — [`gradle.properties`](gradle.properties):
 
-## Лицензия
+```properties
+version=1.0.0
+```
 
-MIT
+Bump it and push to `main` → GitHub Actions builds the jar and publishes release `v<version>` with auto-generated notes.
+Pushes without a version change and pull requests are only built and checked.
+
+## License
+
+[GNU General Public License v3.0](LICENSE) © ByteMe6
