@@ -1,0 +1,21 @@
+name: HanafubukiBlueMapMarkers
+version: '${version}'
+main: com.hanafubuki.markers.MarkersPlugin
+api-version: '1.21'
+author: ByteMe6
+description: Метки игроков на BlueMap для сервера Hanafubuki
+softdepend: [BlueMap]
+
+commands:
+  marker:
+    description: Метки игроков на карте
+    usage: /marker <add|remove|list>
+    aliases: [метка]
+
+permissions:
+  hanafubuki.marker.use:
+    description: Ставить и удалять свои метки
+    default: true
+  hanafubuki.marker.admin:
+    description: Удалять чужие метки
+    default: op
