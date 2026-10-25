@@ -1,47 +1,48 @@
 # Style: https://github.com/Hanafubuki-minecraft/hanafubuki-brand/blob/main/STYLE.md
+# Colors: <accent> <text> <muted> <dim> <success> <error> <gold>, symbol: <symbol> — palette in config.yml → style
 # Русские сообщения HanafubukiBlueMapMarkers
 # Формат: MiniMessage — https://docs.advntr.dev/minimessage/format.html
 # Если ключа нет, берётся встроенный текст.
 
-prefix: "<#F7A1C0>❀</#F7A1C0> "
+prefix: "<accent><symbol></accent> "
 
 # Показывается на веб-странице BlueMap. map-detail — это HTML (не MiniMessage); <name> и <owner> подставляются.
 layer-label: "Метки игроков"
 map-detail: "<b><name></b><br><owner>"
 
-players-only: "<#FF8A9B>Эта команда только для игроков."
-no-permission: "<#FF8A9B>Недостаточно прав."
+players-only: "<error>Эта команда только для игроков."
+no-permission: "<error>Недостаточно прав."
 
-usage-add: "<#FF8A9B>Использование: <#F4EEF6>/<label> add [название]"
-usage-remove: "<#FF8A9B>Использование: <#F4EEF6>/<label> remove [название]"
-usage-adminremove: "<#FF8A9B>Использование: <#F4EEF6>/<label> adminremove [игрок] [название]"
+usage-add: "<error>Использование: <text>/<label> add [название]"
+usage-remove: "<error>Использование: <text>/<label> remove [название]"
+usage-adminremove: "<error>Использование: <text>/<label> adminremove [игрок] [название]"
 
-add-ok: "<#A8E6B5>Метка <#F4EEF6><name></#F4EEF6> добавлена на карту."
-bad-name: "<#FF8A9B>Название: 1–<max> символов — буквы, цифры, пробел, - и _."
-world-disabled: "<#FF8A9B>В этом мире метки ставить нельзя."
-limit: "<#FF8A9B>Достигнут лимит меток: <limit>. Сначала удали одну: <#F4EEF6>/<label> remove [название]"
-exists: "<#FF8A9B>У тебя уже есть метка с таким названием."
+add-ok: "<success>Метка <text><name></text> добавлена на карту."
+bad-name: "<error>Название: 1–<max> символов — буквы, цифры, пробел, - и _."
+world-disabled: "<error>В этом мире метки ставить нельзя."
+limit: "<error>Достигнут лимит меток: <limit>. Сначала удали одну: <text>/<label> remove [название]"
+exists: "<error>У тебя уже есть метка с таким названием."
 
-remove-ok: "<#A8E6B5>Метка <#F4EEF6><name></#F4EEF6> удалена."
-remove-not-found: "<#FF8A9B>Нет метки с таким названием. Список: <#F4EEF6>/<label> list"
+remove-ok: "<success>Метка <text><name></text> удалена."
+remove-not-found: "<error>Нет метки с таким названием. Список: <text>/<label> list"
 
-list-empty: "<#A99BB5>У тебя пока нет меток. Добавить: <#F4EEF6>/<label> add [название]"
-list-header: "<#A8E6B5>Твои метки (<count>/<limit>):"
-list-entry: "<#A99BB5> • <#F4EEF6><name></#F4EEF6> — <world> <x> <y> <z>"
+list-empty: "<muted>У тебя пока нет меток. Добавить: <text>/<label> add [название]"
+list-header: "<success>Твои метки (<count>/<limit>):"
+list-entry: "<muted> • <text><name></text> — <world> <x> <y> <z>"
 
-admin-no-markers: "<#FF8A9B>У игрока <player> нет меток."
-admin-remove-ok: "<#A8E6B5>Метка <#F4EEF6><name></#F4EEF6> игрока <player> удалена."
-admin-remove-not-found: "<#FF8A9B>У игрока <player> нет метки с таким названием."
+admin-no-markers: "<error>У игрока <player> нет меток."
+admin-remove-ok: "<success>Метка <text><name></text> игрока <player> удалена."
+admin-remove-not-found: "<error>У игрока <player> нет метки с таким названием."
 
-language-current: "<#A99BB5>Текущий язык: <#F4EEF6><language></#F4EEF6>. Доступны: <#F4EEF6><available>"
-language-set: "<#A8E6B5>Язык изменён на <#F4EEF6><language></#F4EEF6>."
-language-unknown: "<#FF8A9B>Неизвестный язык <#F4EEF6><language></#F4EEF6>. Доступны: <#F4EEF6><available>"
-reloaded: "<#A8E6B5>Конфигурация перезагружена."
+language-current: "<muted>Текущий язык: <text><language></text>. Доступны: <text><available>"
+language-set: "<success>Язык изменён на <text><language></text>."
+language-unknown: "<error>Неизвестный язык <text><language></text>. Доступны: <text><available>"
+reloaded: "<success>Конфигурация перезагружена."
 
-help-header: "<#A8E6B5>Метки на карте BlueMap:"
-help-add: "<#A99BB5> /<label> add [название] <#6F6480>—</#6F6480> метка на твоём месте"
-help-remove: "<#A99BB5> /<label> remove [название] <#6F6480>—</#6F6480> удалить свою метку"
-help-list: "<#A99BB5> /<label> list <#6F6480>—</#6F6480> твои метки"
-help-adminremove: "<#A99BB5> /<label> adminremove [игрок] [название] <#6F6480>—</#6F6480> удалить любую метку"
-help-language: "<#A99BB5> /<label> language [код] <#6F6480>—</#6F6480> сменить язык"
-help-reload: "<#A99BB5> /<label> reload <#6F6480>—</#6F6480> перезагрузить конфиг"
+help-header: "<success>Метки на карте BlueMap:"
+help-add: "<muted> /<label> add [название] <dim>—</dim> метка на твоём месте"
+help-remove: "<muted> /<label> remove [название] <dim>—</dim> удалить свою метку"
+help-list: "<muted> /<label> list <dim>—</dim> твои метки"
+help-adminremove: "<muted> /<label> adminremove [игрок] [название] <dim>—</dim> удалить любую метку"
+help-language: "<muted> /<label> language [код] <dim>—</dim> сменить язык"
+help-reload: "<muted> /<label> reload <dim>—</dim> перезагрузить конфиг"

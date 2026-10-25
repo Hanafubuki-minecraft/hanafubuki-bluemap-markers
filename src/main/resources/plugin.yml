@@ -7,11 +7,7 @@ website: https://github.com/Hanafubuki-minecraft/hanafubuki-bluemap-markers
 description: Let players place their own markers on the BlueMap web map
 softdepend: [BlueMap]
 
-commands:
-  marker:
-    description: Player markers on the BlueMap web map
-    usage: /marker <add|remove|list>
-    aliases: [markers, метка]
+# Commands are registered from config.yml → commands (name, aliases, enabled)
 
 permissions:
   hanafubuki.marker.use:

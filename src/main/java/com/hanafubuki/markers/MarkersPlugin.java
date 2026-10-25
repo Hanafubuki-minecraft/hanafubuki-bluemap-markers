@@ -1,6 +1,5 @@
 package com.hanafubuki.markers;
 
-import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -32,11 +31,9 @@ public final class MarkersPlugin extends JavaPlugin {
         markers.enable();
 
         MarkerCommand cmd = new MarkerCommand(this, markers, messages);
-        PluginCommand command = getCommand("marker");
-        if (command != null) {
-            command.setExecutor(cmd);
-            command.setTabCompleter(cmd);
-        }
+        // имя, алиасы и включение — config.yml → commands.marker
+        Commands.register(this, "marker", "Player markers on the BlueMap web map", null,
+                List.of("markers", "метка"), cmd, cmd);
     }
 
     @Override
