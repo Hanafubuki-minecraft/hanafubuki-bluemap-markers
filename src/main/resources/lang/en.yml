@@ -1,46 +1,47 @@
+# Style: https://github.com/Hanafubuki-minecraft/hanafubuki-brand/blob/main/STYLE.md
 # English messages for HanafubukiBlueMapMarkers
 # Format: MiniMessage — https://docs.advntr.dev/minimessage/format.html
 # Missing keys fall back to the built-in English text.
 
-prefix: "<gray>[<#ffb7c5>Markers</#ffb7c5>]</gray> "
+prefix: "<#F7A1C0>❀</#F7A1C0> "
 
 # Shown on the BlueMap web page. map-detail is HTML (not MiniMessage); <name> and <owner> are replaced.
 layer-label: "Player markers"
 map-detail: "<b><name></b><br><owner>"
 
-players-only: "<red>Only players can use this command."
-no-permission: "<red>You don't have permission to do that."
+players-only: "<#FF8A9B>Only players can use this command."
+no-permission: "<#FF8A9B>You don't have permission to do that."
 
-usage-add: "<red>Usage: <white>/<label> add [name]"
-usage-remove: "<red>Usage: <white>/<label> remove [name]"
-usage-adminremove: "<red>Usage: <white>/<label> adminremove [player] [name]"
+usage-add: "<#FF8A9B>Usage: <#F4EEF6>/<label> add [name]"
+usage-remove: "<#FF8A9B>Usage: <#F4EEF6>/<label> remove [name]"
+usage-adminremove: "<#FF8A9B>Usage: <#F4EEF6>/<label> adminremove [player] [name]"
 
-add-ok: "<green>Marker <white><name></white> added to the map."
-bad-name: "<red>Name must be 1–<max> characters: letters, digits, spaces, - and _."
-world-disabled: "<red>Markers can't be placed in this world."
-limit: "<red>You've reached the limit of <limit> markers. Remove one first: <white>/<label> remove [name]"
-exists: "<red>You already have a marker with that name."
+add-ok: "<#A8E6B5>Marker <#F4EEF6><name></#F4EEF6> added to the map."
+bad-name: "<#FF8A9B>Name must be 1–<max> characters: letters, digits, spaces, - and _."
+world-disabled: "<#FF8A9B>Markers can't be placed in this world."
+limit: "<#FF8A9B>You've reached the limit of <limit> markers. Remove one first: <#F4EEF6>/<label> remove [name]"
+exists: "<#FF8A9B>You already have a marker with that name."
 
-remove-ok: "<green>Marker <white><name></white> removed."
-remove-not-found: "<red>No marker with that name. See <white>/<label> list"
+remove-ok: "<#A8E6B5>Marker <#F4EEF6><name></#F4EEF6> removed."
+remove-not-found: "<#FF8A9B>No marker with that name. See <#F4EEF6>/<label> list"
 
-list-empty: "<gray>You have no markers yet. Add one: <white>/<label> add [name]"
-list-header: "<green>Your markers (<count>/<limit>):"
-list-entry: "<gray> • <white><name></white> — <world> <x> <y> <z>"
+list-empty: "<#A99BB5>You have no markers yet. Add one: <#F4EEF6>/<label> add [name]"
+list-header: "<#A8E6B5>Your markers (<count>/<limit>):"
+list-entry: "<#A99BB5> • <#F4EEF6><name></#F4EEF6> — <world> <x> <y> <z>"
 
-admin-no-markers: "<red><player> has no markers."
-admin-remove-ok: "<green>Removed marker <white><name></white> of <player>."
-admin-remove-not-found: "<red><player> has no marker with that name."
+admin-no-markers: "<#FF8A9B><player> has no markers."
+admin-remove-ok: "<#A8E6B5>Removed marker <#F4EEF6><name></#F4EEF6> of <player>."
+admin-remove-not-found: "<#FF8A9B><player> has no marker with that name."
 
-language-current: "<gray>Current language: <white><language></white>. Available: <white><available>"
-language-set: "<green>Language set to <white><language></white>."
-language-unknown: "<red>Unknown language <white><language></white>. Available: <white><available>"
-reloaded: "<green>Configuration reloaded."
+language-current: "<#A99BB5>Current language: <#F4EEF6><language></#F4EEF6>. Available: <#F4EEF6><available>"
+language-set: "<#A8E6B5>Language set to <#F4EEF6><language></#F4EEF6>."
+language-unknown: "<#FF8A9B>Unknown language <#F4EEF6><language></#F4EEF6>. Available: <#F4EEF6><available>"
+reloaded: "<#A8E6B5>Configuration reloaded."
 
-help-header: "<green>BlueMap markers:"
-help-add: "<gray> /<label> add [name] <dark_gray>—</dark_gray> mark your current position"
-help-remove: "<gray> /<label> remove [name] <dark_gray>—</dark_gray> remove your marker"
-help-list: "<gray> /<label> list <dark_gray>—</dark_gray> your markers"
-help-adminremove: "<gray> /<label> adminremove [player] [name] <dark_gray>—</dark_gray> remove any marker"
-help-language: "<gray> /<label> language [code] <dark_gray>—</dark_gray> change language"
-help-reload: "<gray> /<label> reload <dark_gray>—</dark_gray> reload config"
+help-header: "<#A8E6B5>BlueMap markers:"
+help-add: "<#A99BB5> /<label> add [name] <#6F6480>—</#6F6480> mark your current position"
+help-remove: "<#A99BB5> /<label> remove [name] <#6F6480>—</#6F6480> remove your marker"
+help-list: "<#A99BB5> /<label> list <#6F6480>—</#6F6480> your markers"
+help-adminremove: "<#A99BB5> /<label> adminremove [player] [name] <#6F6480>—</#6F6480> remove any marker"
+help-language: "<#A99BB5> /<label> language [code] <#6F6480>—</#6F6480> change language"
+help-reload: "<#A99BB5> /<label> reload <#6F6480>—</#6F6480> reload config"
