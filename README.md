@@ -134,3 +134,7 @@ Pushes without a version change and pull requests are only built and checked.
 
 - `config.yml` → `commands`: rename a command, change its aliases or disable it (restart to apply).
 - `config.yml` → `style`: message palette and prefix symbol. Language files use semantic tags — `<accent>`, `<text>`, `<muted>`, `<dim>`, `<success>`, `<error>`, `<gold>`, `<symbol>` — so recoloring everything is one edit. Default palette: [Hanafubuki style](https://github.com/Hanafubuki-minecraft/hanafubuki-brand/blob/main/STYLE.md).
+
+## Configuration examples
+
+All settings with defaults and descriptions, plus ready-made snippets for common setups: [`examples/`](examples/).

@@ -1,0 +1,5 @@
+# Применить: /marker reload
+markers:
+  max-per-player: 6
+  max-name-length: 48
+  disabled-worlds: [world_the_end]

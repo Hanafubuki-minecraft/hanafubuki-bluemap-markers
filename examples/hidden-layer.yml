@@ -1,0 +1,6 @@
+# Применить: /marker reload
+map:
+  layer-label: "Дома игроков"
+  default-hidden: true
+  # Метки пропадают, если отдалить карту дальше этого (блоков)
+  max-distance: 20000

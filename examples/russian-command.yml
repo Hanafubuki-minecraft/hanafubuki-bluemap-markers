@@ -1,0 +1,4 @@
+# Применить: рестарт сервера
+language: ru
+commands:
+  marker: { enabled: true, name: метка, aliases: [marker, markers] }
